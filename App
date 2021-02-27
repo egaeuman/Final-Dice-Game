@@ -1,0 +1,294 @@
+classdef Final_Dice_App < matlab.apps.AppBase
+
+    % Properties that correspond to app components
+    properties (Access = public)
+        UIFigure                matlab.ui.Figure
+        FirstRollButton         matlab.ui.control.Button
+        FirstRollButton_2       matlab.ui.control.Button
+        RollAgainButton         matlab.ui.control.Button
+        RollAgainButton_2       matlab.ui.control.Button
+        ResetButton             matlab.ui.control.Button
+        ExitButton              matlab.ui.control.Button
+        ReturntoMainMenuButton  matlab.ui.control.Button
+        Image1                  matlab.ui.control.Image
+        Image2                  matlab.ui.control.Image
+        Image3                  matlab.ui.control.Image
+        Image4                  matlab.ui.control.Image
+        Image6                  matlab.ui.control.Image
+        Image5                  matlab.ui.control.Image
+        SlideSwitchLabel        matlab.ui.control.Label
+        SlideSwitch             matlab.ui.control.Switch
+    end
+
+    % Callbacks that handle component events
+    methods (Access = private)
+
+        % Button pushed function: FirstRollButton, FirstRollButton_2
+        function FirstRollButtonPushed(app, event)
+
+            roll = 0;
+            
+            while (roll < 1)232
+                
+                die1 = randi(6);
+                die2 = randi(6);
+                die3 = randi(6);
+                die4 = randi(6);
+                die5 = randi(6);
+                die6 = randi(6);
+                    
+
+            
+                if die1 == 1
+                    app.Image1.ImageSource = 'dice1.jpg';
+                elseif die1 == 2
+                    app.Image1.ImageSource = 'dice2.jpg';
+                elseif die1 == 3
+                    app.Image1.ImageSource = 'dice3.jpg';
+                elseif die1 == 4
+                    app.Image1.ImageSource = 'dice4.jpg';
+                elseif die1 == 5
+                    app.Image1.ImageSource = 'dice5.jpg';
+                elseif die1 == 6
+                    app.Image1.ImageSource = 'dice6.jpg';
+                end
+    
+                if die2 == 1
+                    app.Image2.ImageSource = 'dice1.jpg';
+                elseif die2 == 2
+                    app.Image2.ImageSource = 'dice2.jpg';
+                elseif die2 == 3
+                    app.Image2.ImageSource = 'dice3.jpg';
+                 elseif die2 == 4
+                    app.Image2.ImageSource = 'dice4.jpg';
+                 elseif die2 == 5
+                    app.Image2.ImageSource = 'dice5.jpg';
+                 elseif die2 == 6
+                    app.Image2.ImageSource = 'dice6.jpg';
+                end
+                    
+                    
+                if die3 == 1
+                    app.Image3.ImageSource = 'dice1.jpg';
+                 elseif die3 == 2
+                    app.Image3.ImageSource = 'dice2.jpg';
+                 elseif die3 == 3
+                    app.Image3.ImageSource = 'dice3.jpg';
+                 elseif die3 == 4
+                    app.Image3.ImageSource = 'dice4.jpg';
+                 elseif die3 == 5
+                    app.Image3.ImageSource = 'dice5.jpg';
+                 elseif die3 == 6
+                    app.Image3.ImageSource = 'dice6.jpg';
+                end
+             
+        
+               
+                if die4 == 1
+                    app.Image4.ImageSource = 'dice1.jpg';
+                 elseif die4 == 2
+                    app.Image4.ImageSource = 'dice2.jpg';
+                 elseif die4 == 3
+                    app.Image4.ImageSource = 'dice3.jpg';
+                elseif die4 == 4
+                    app.Image4.ImageSource = 'dice4.jpg';
+                 elseif die4 == 5
+                    app.Image4.ImageSource = 'dice5.jpg';
+                 elseif die4 == 6
+                    app.Image4.ImageSource = 'dice6.jpg';
+                end
+                    
+                    
+    
+                if die5 == 1
+                    app.Image5.ImageSource = 'dice1.jpg';
+                 elseif die5 == 2
+                    app.Image5.ImageSource = 'dice2.jpg';
+                 elseif die5 == 3
+                    app.Image5.ImageSource = 'dice3.jpg';
+                 elseif die5 == 4
+                    app.Image5.ImageSource = 'dice4.jpg';
+                 elseif die5 == 5
+                    app.Image5.ImageSource = 'dice5.jpg';
+                 elseif die5 == 6
+                    app.Image5.ImageSource = 'dice6.jpg';
+                end
+                    
+                    
+                  
+                if die6 == 1
+                    app.Image6.ImageSource = 'dice1.jpg';
+                elseif die6 == 2
+                    app.Image6.ImageSource = 'dice2.jpg';
+                elseif die6 == 3
+                    app.Image6.ImageSource = 'dice3.jpg';
+                elseif die6 == 4
+                    app.Image6.ImageSource = 'dice4.jpg';
+                elseif die6 == 5
+                    app.Image6.ImageSource = 'dice5.jpg';
+                elseif die6 == 6
+                    app.Image6.ImageSource = 'dice6.jpg';
+                end
+                
+                
+                roll = roll + 1
+                
+            end
+            
+            
+                                
+            
+                
+
+        end
+
+        % Button pushed function: ResetButton
+        function ResetButtonPushed(app, event)
+            app.Image1.ImageSource = 'blank.jpg';
+            app.Image2.ImageSource = 'blank.jpg';
+            app.Image3.ImageSource = 'blank.jpg';
+            app.Image4.ImageSource = 'blank.jpg';
+            app.Image6.ImageSource = 'blank.jpg';
+            app.Image5.ImageSource = 'blank.jpg';
+        end
+
+        % Value changed function: SlideSwitch
+        function SlideSwitchValueChanged(app, event)
+            
+            value = app.SlideSwitch.Value;
+            while value == true
+                die1 = 0          
+            
+            
+            end
+        end
+    end
+
+    % Component initialization
+    methods (Access = private)
+
+        % Create UIFigure and components
+        function createComponents(app)
+
+            % Create UIFigure and hide until all components are created
+            app.UIFigure = uifigure('Visible', 'off');
+            app.UIFigure.Position = [100 100 640 480];
+            app.UIFigure.Name = 'MATLAB App';
+
+            % Create FirstRollButton
+            app.FirstRollButton = uibutton(app.UIFigure, 'push');
+            app.FirstRollButton.ButtonPushedFcn = createCallbackFcn(app, @FirstRollButtonPushed, true);
+            app.FirstRollButton.BackgroundColor = [1 0 0];
+            app.FirstRollButton.Position = [1 405 283 66];
+            app.FirstRollButton.Text = 'First Roll';
+
+            % Create FirstRollButton_2
+            app.FirstRollButton_2 = uibutton(app.UIFigure, 'push');
+            app.FirstRollButton_2.ButtonPushedFcn = createCallbackFcn(app, @FirstRollButtonPushed, true);
+            app.FirstRollButton_2.BackgroundColor = [0 0 1];
+            app.FirstRollButton_2.Position = [357 405 284 66];
+            app.FirstRollButton_2.Text = 'First Roll';
+
+            % Create RollAgainButton
+            app.RollAgainButton = uibutton(app.UIFigure, 'push');
+            app.RollAgainButton.BackgroundColor = [1 0 0];
+            app.RollAgainButton.Position = [1 329 283 66];
+            app.RollAgainButton.Text = 'Roll Again';
+
+            % Create RollAgainButton_2
+            app.RollAgainButton_2 = uibutton(app.UIFigure, 'push');
+            app.RollAgainButton_2.BackgroundColor = [0 0 1];
+            app.RollAgainButton_2.Position = [357 329 284 66];
+            app.RollAgainButton_2.Text = 'Roll Again';
+
+            % Create ResetButton
+            app.ResetButton = uibutton(app.UIFigure, 'push');
+            app.ResetButton.ButtonPushedFcn = createCallbackFcn(app, @ResetButtonPushed, true);
+            app.ResetButton.BackgroundColor = [0.4941 0.1843 0.5569];
+            app.ResetButton.Position = [75 12 75 66];
+            app.ResetButton.Text = 'Reset';
+
+            % Create ExitButton
+            app.ExitButton = uibutton(app.UIFigure, 'push');
+            app.ExitButton.BackgroundColor = [0.4941 0.1843 0.5569];
+            app.ExitButton.Position = [283 12 75 66];
+            app.ExitButton.Text = 'Exit';
+
+            % Create ReturntoMainMenuButton
+            app.ReturntoMainMenuButton = uibutton(app.UIFigure, 'push');
+            app.ReturntoMainMenuButton.BackgroundColor = [0.4941 0.1843 0.5569];
+            app.ReturntoMainMenuButton.Position = [492 12 75 66];
+            app.ReturntoMainMenuButton.Text = {'Return to'; 'Main Menu'};
+
+            % Create Image1
+            app.Image1 = uiimage(app.UIFigure);
+            app.Image1.Position = [0 100 100 100];
+            app.Image1.ImageSource = 'blank.jpg';
+
+            % Create Image2
+            app.Image2 = uiimage(app.UIFigure);
+            app.Image2.Position = [107 100 100 100];
+            app.Image2.ImageSource = 'blank.jpg';
+
+            % Create Image3
+            app.Image3 = uiimage(app.UIFigure);
+            app.Image3.Position = [215 101 100 100];
+            app.Image3.ImageSource = 'blank.jpg';
+
+            % Create Image4
+            app.Image4 = uiimage(app.UIFigure);
+            app.Image4.Position = [324 100 100 100];
+            app.Image4.ImageSource = 'blank.jpg';
+
+            % Create Image6
+            app.Image6 = uiimage(app.UIFigure);
+            app.Image6.Position = [431 100 100 100];
+            app.Image6.ImageSource = 'blank.jpg';
+
+            % Create Image5
+            app.Image5 = uiimage(app.UIFigure);
+            app.Image5.Position = [540 100 100 100];
+            app.Image5.ImageSource = 'blank.jpg';
+
+            % Create SlideSwitchLabel
+            app.SlideSwitchLabel = uilabel(app.UIFigure);
+            app.SlideSwitchLabel.HorizontalAlignment = 'center';
+            app.SlideSwitchLabel.Position = [34 210 32 22];
+            app.SlideSwitchLabel.Text = 'Slide';
+
+            % Create SlideSwitch
+            app.SlideSwitch = uiswitch(app.UIFigure, 'slider');
+            app.SlideSwitch.ValueChangedFcn = createCallbackFcn(app, @SlideSwitchValueChanged, true);
+            app.SlideSwitch.HandleVisibility = 'callback';
+            app.SlideSwitch.Position = [39 247 22 10];
+
+            % Show the figure after all components are created
+            app.UIFigure.Visible = 'on';
+        end
+    end
+
+    % App creation and deletion
+    methods (Access = public)
+
+        % Construct app
+        function app = Final_Dice_App
+
+            % Create UIFigure and components
+            createComponents(app)
+
+            % Register the app with App Designer
+            registerApp(app, app.UIFigure)
+
+            if nargout == 0
+                clear app
+            end
+        end
+
+        % Code that executes before app deletion
+        function delete(app)
+
+            % Delete UIFigure when app is deleted
+            delete(app.UIFigure)
+        end
+    end
+end
