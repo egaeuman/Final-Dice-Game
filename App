@@ -18,6 +18,7 @@ classdef Final_Dice_App < matlab.apps.AppBase
         Image5                  matlab.ui.control.Image
         SlideSwitchLabel        matlab.ui.control.Label
         SlideSwitch             matlab.ui.control.Switch
+        UITable                 matlab.ui.control.Table
     end
 
     % Callbacks that handle component events
@@ -135,7 +136,94 @@ classdef Final_Dice_App < matlab.apps.AppBase
                 
             end
             
+        function rollType = CalculateRoll(roll)
             
+            numberOfOnes = length(find(roll == 1));
+            numberOfTwos = length(find(roll == 2));
+            numberOfThrees = length(find(roll == 3));
+            numberOfFours = length(find(roll == 4));
+            numberOfFives = length(find(roll == 5));
+            numberOfSixes = length(find(roll == 6));
+    
+            Ones = 0;
+            Fives = 0;
+            threeOnes = 0;
+            threeTwos =  0;
+            threeThrees = 0;
+            threeFours = 0;
+            threeFives = 0;
+            threeSixes = 0;
+            straight = 0;
+            threePairsRolled = 0;
+            fourOfAKindOnePairRolled = 0;
+    
+            temp1 = numberOfOnes;
+            temp5 = numberOfFives;
+    
+            for temp1 = 1:numberOfOnes
+                Ones = Ones + 1;
+            end
+    
+            for temp5 = 1:numberOfFives
+                Fives = Fives + 1;
+            end
+    
+            if numberOfOnes == 3
+                threeOnes = threeOnes + 1;
+            end
+    
+            if numberOfTwos == 3
+                threeTwos = threeTwos + 1;
+            end
+    
+            if numberOfThrees == 3
+                threeThrees = threeThrees + 1;
+            end
+    
+            if numberOfFours == 3
+                threeFours = threeFours + 1;
+            end
+    
+            if numberOfFives == 3
+                threeFives = threeFives + 1;
+            end
+      
+            if numberOfSixes == 3
+                threeSixes = threeSixes + 1;
+            end
+    
+            if numberOfOnes == 1 && numberOfTwos == 1 && numberOfThrees == 1 &&...
+                numberOfFours == 1 && numberOfFives == 1 && numberOfSixes == 1
+            straight = straight + 1;
+            end
+    
+            temp = [numberOfOnes, numberOfTwos, numberOfThrees, numberOfFours, numberOfFives, numberOfSixes];
+    
+            threePairs = length(find(temp == 2)) == 3;
+            fourOfAKindOnePair = length(find(temp == 2)) == 1 && ...
+                                length(find(temp == 4)) == 1;
+    
+            if threePairs
+                threePairsRolled = threePairsRolled + 1;
+            end
+    
+            if fourOfAKindOnePair
+                fourOfAKindOnePairRolled = fourOfAKindOnePairRolled + 1;
+            end
+    
+            rollType = [Ones; Fives; threeOnes; threeTwos; threeThrees;...
+                        threeFours; threeFives; threeSixes; straight; ...
+                        threePairsRolled; fourOfAKindOnePairRolled];
+        end
+                
+        
+        app.FirstRollButton = app.CalculateRoll(app.FirstRollButton);
+        app.UITable.RowName = ["Ones"; "Fives"; "Three Ones"; "Three Twos"; "Three Threes";...
+                "Three Fours"; "Three Fives"; "Three Sixes"; "Straight";...
+                "Three Pairs"; "Four of a Kind and a Pair"]
+        app.UITable.Data(:, 1) = app.FirstRollButton;
+        app.UITable.Data(:, 2) = zeros(1, 11);
+
                                 
             
                 
@@ -262,6 +350,12 @@ classdef Final_Dice_App < matlab.apps.AppBase
             app.SlideSwitch.HandleVisibility = 'callback';
             app.SlideSwitch.Position = [39 247 22 10];
 
+            % Create UITable
+            app.UITable = uitable(app.UIFigure);
+            app.UITable.ColumnName = {'Player 1'; 'Player 2'};
+            app.UITable.RowName = {};
+            app.UITable.Position = [357 210 283 120];
+
             % Show the figure after all components are created
             app.UIFigure.Visible = 'on';
         end
@@ -291,87 +385,4 @@ classdef Final_Dice_App < matlab.apps.AppBase
             delete(app.UIFigure)
         end
     end
-end
-
-function rollType = CalculateRoll(roll)
-    numberOfOnes = length(find(roll == 1));
-    numberOfTwos = length(find(roll == 2));
-    numberOfThrees = length(find(roll == 3));
-    numberOfFours = length(find(roll == 4));
-    numberOfFives = length(find(roll == 5));
-    numberOfSixes = length(find(roll == 6));
-    
-    Ones = 0;
-    Fives = 0;
-    threeOnes = 0;
-    threeTwos =  0;
-    threeThrees = 0;
-    threeFours = 0;
-    threeFives = 0;
-    threeSixes = 0;
-    straight = 0;
-    threePairsRolled = 0;
-    fourOfAKindOnePairRolled = 0;
-    
-    temp1 = numberOfOnes;
-    temp5 = numberOfFives;
-    
-    for temp1 = 1:numberOfOnes
-        Ones = Ones + 1;
-    end
-    
-    for temp5 = 1:numberOfFives
-        Fives = Fives + 1;
-    end
-    
-    if numberOfOnes == 3
-        threeOnes = threeOnes + 1;
-    end
-    
-    if numberOfTwos == 3
-        threeTwos = threeTwos + 1;
-    end
-    
-    if numberOfThrees == 3
-        threeThrees = threeThrees + 1;
-    end
-    
-    if numberOfFours == 3
-        threeFours = threeFours + 1;
-    end
-    
-    if numberOfFives == 3
-        threeFives = threeFives + 1;
-    end
-    
-    if numberOfSixes == 3
-        threeSixes = threeSixes + 1;
-    end
-    
-    if numberOfOnes == 1 && numberOfTwos == 1 && numberOfThrees == 1 &&...
-       numberOfFours == 1 && numberOfFives == 1 && numberOfSixes == 1
-       straight = straight + 1;
-    end
-    
-    temp = [numberOfOnes, numberOfTwos, numberOfThrees, numberOfFours, numberOfFives, numberOfSixes];
-    
-    threePairs = length(find(temp == 2)) == 3;
-    fourOfAKindOnePair = length(find(temp == 2)) == 1 && ...
-                         length(find(temp == 4)) == 1;
-    
-    if threePairs
-        threePairsRolled = threePairsRolled + 1;
-    end
-    
-    if fourOfAKindOnePair
-        fourOfAKindOnePairRolled = fourOfAKindOnePairRolled + 1;
-    end
-    
-    rollType = [Ones; Fives; threeOnes; threeTwos; threeThrees;...
-                threeFours; threeFives; threeSixes; straight; ...
-                threePairsRolled; fourOfAKindOnePairRolled];
-end
-    RowName = ["Ones"; "Fives"; "Three Ones"; "Three Twos"; "Three Threes";...
-                "Three Fours"; "Three Fives"; "Three Sixes"; "Straight";...
-                "Three Pairs"; "Four of a Kind and a Pair"]
 end
